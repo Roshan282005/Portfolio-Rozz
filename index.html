@@ -227,6 +227,7 @@
       position: absolute;
       inset: 0;
       z-index: 0;
+      overflow: hidden;
       background: linear-gradient(to bottom, rgba(10, 10, 10, 0.2) 0%, rgba(10, 10, 10, 0.7) 60%, rgba(10, 10, 10, 0.95) 100%);
     }
 
@@ -242,16 +243,20 @@
 
     .hero-grid {
       position: absolute;
+      width: 100%;
+      height: 100%;
       inset: 0;
-      z-index: 0;
+      object-fit: cover;
+      z-index: 1;
       opacity: 0.04;
       background-image: linear-gradient(rgba(255, 255, 255, 1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 1) 1px, transparent 1px);
       background-size: 80px 80px;
     }
 
+    /* ensure content sits above video */
     .hero-content {
       position: relative;
-      z-index: 2;
+      z-index: 3;
       max-width: 900px;
     }
 
@@ -271,6 +276,14 @@
       color: var(--red);
     }
 
+    .hero-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: linear-gradient(to bottom, rgba(10, 10, 10, 0.2) 0%, rgba(10, 10, 10, 0.7) 60%, rgba(10, 10, 10, 0.95) 100%);
+    }
+
     .hero-badge::before {
       content: '';
       width: 6px;
@@ -278,6 +291,34 @@
       background: var(--green);
       border-radius: 50%;
       animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* ensure content sits above video */
+
+
+    /* top-right sound toggle */
+    .sound-toggle {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.55);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 5;
+      font-size: 18px;
+    }
+
+    @media (max-width:768px) {
+      .sound-toggle {
+        display: none;
+      }
     }
 
     @keyframes pulse {
@@ -1557,13 +1598,19 @@
     <a href="#contact" onclick="toggleMobile()">Contact</a>
   </div>
 
-  <!-- HERO -->
+  <!-- HERO (updated) -->
   <section id="hero">
     <div class="hero-grid"></div>
     <div class="hero-noise"></div>
-    <div class="hero-bg"></div>
+
+    <div class="hero-bg">
+      <video id="heroVideo" autoplay muted loop playsinline preload="auto" class="hero-video">
+        <source src="/reel.mp4" type="video/mp4">
+      </video>
+    </div>
+
     <div class="hero-content">
-      <div class="hero-badge">Available for work &nbsp;· &nbsp;Chennai, India</div>
+      <div class="hero-badge">Available for work · Chennai, India</div>
       <h1 class="hero-headline">
         FULL<br>
         <span class="outline">STACK</span><br>
@@ -1571,28 +1618,23 @@
       </h1>
       <p class="hero-sub">
         Building and shipping production web applications — React, Next.js, TypeScript, Node.js.
-        Currently at Big Bucks Innovation · IIT Delhi IHFC.
       </p>
       <div class="hero-actions">
         <a href="#projects" class="btn-primary">View My Work</a>
         <a href="#contact" class="btn-ghost">Get in Touch</a>
       </div>
     </div>
+
     <div class="hero-right">
       <div class="play-btn" id="playBtn">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
           <path d="M8 5v14l11-7z" />
         </svg>
       </div>
-      <span class="play-label">Play Reel</span>
-    </div>
-    <div class="scroll-hint">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
     </div>
   </section>
 
-  <!-- VIDEO MODAL — src: reel.mp4 (place in same folder as index.html) -->
+  <!-- VIDEO MODAL (unchanged markup except absolute source path for Vercel) -->
   <div id="videoModal">
     <div class="modal-inner">
       <button class="modal-close" onclick="closeVideo()">
@@ -1602,7 +1644,7 @@
         Close
       </button>
       <video id="reelVideo" controls playsinline preload="none">
-        <source src="reel.mp4" type="video/mp4">
+        <source src="/reel.mp4" type="video/mp4">
       </video>
     </div>
   </div>
@@ -1962,6 +2004,45 @@
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
     });
 
+    // Ensure heroVideo exists and add top-right sound toggle (user gesture required to unmute)
+    (function () {
+      const heroVideo = document.getElementById('heroVideo');
+      if (!heroVideo) return;
+
+      // create toggle button
+      const btn = document.createElement('button');
+      btn.id = 'soundToggle';
+      btn.className = 'sound-toggle';
+      btn.type = 'button';
+      btn.title = 'Toggle sound';
+      btn.setAttribute('aria-pressed', 'false');
+      btn.textContent = '🔈';
+
+      // place in top-right of hero
+      const hero = document.getElementById('hero');
+      if (hero) hero.appendChild(btn);
+
+      // toggle behavior
+      btn.addEventListener('click', () => {
+        // browsers require a user gesture to unmute; this click satisfies that
+        if (heroVideo.muted) {
+          heroVideo.muted = false;
+          btn.textContent = '🔊';
+          btn.setAttribute('aria-pressed', 'true');
+        } else {
+          heroVideo.muted = true;
+          btn.textContent = '🔈';
+          btn.setAttribute('aria-pressed', 'false');
+        }
+      });
+
+      // sync state on play
+      heroVideo.addEventListener('play', () => {
+        if (heroVideo.muted) { btn.textContent = '🔈'; btn.setAttribute('aria-pressed', 'false'); }
+        else { btn.textContent = '🔊'; btn.setAttribute('aria-pressed', 'true'); }
+      });
+    })();
+
     // Mobile menu
     function toggleMobile() {
       document.getElementById('mobileMenu').classList.toggle('open');
@@ -2003,11 +2084,11 @@
     const y = new Date().getFullYear();
     document.getElementById('footer-year').textContent = y;
     document.getElementById('copy-year').textContent = y;
-    
+
     if (typeof emailjs === "undefined") {
-    console.error("EmailJS failed to load");
+      console.error("EmailJS failed to load");
     } else {
-    console.log("EmailJS loaded successfully");
+      console.log("EmailJS loaded successfully");
     }
     // Initialize EmailJS
     emailjs.init({
