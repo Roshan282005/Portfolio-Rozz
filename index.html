@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ROZZ — Roshan S | Full Stack Developer</title>
+  <link rel="icon" src="logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -304,7 +305,7 @@
     /* top-right sound toggle */
     .sound-toggle {
       position: absolute;
-      top: 18px;
+      top: 8%;
       right: 18px;
       width: 44px;
       height: 44px;
@@ -317,12 +318,27 @@
       border-radius: 8px;
       cursor: pointer;
       z-index: 5;
-      font-size: 18px
+      font-size: 28px
     }
 
     @media (max-width:768px) {
       .sound-toggle {
-        display: none
+        display: none;
+      }
+      .play-btn{
+        display: block;
+      }
+    }
+
+    @media (max-width:320px) {
+      .sound-toggle {
+        display: none;
+      }
+      .play-btn{
+        display: block;
+        width: 57px;
+        height: 57px;
+        z-index: 5;
       }
     }
 
@@ -1465,7 +1481,7 @@
       }
 
       .hero-right {
-        right: 1.5rem;
+        right: 1.2rem;
       }
 
       .about-inner {
@@ -1529,7 +1545,7 @@
 
     @media (max-width: 520px) {
       .cert-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1.5fr;
       }
     }
 
