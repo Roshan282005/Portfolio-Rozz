@@ -17,7 +17,7 @@
     *::after {
       box-sizing: border-box;
       margin: 0;
-      padding: 0;
+      padding: 0
     }
 
     :root {
@@ -37,7 +37,7 @@
     }
 
     html {
-      scroll-behavior: smooth;
+      scroll-behavior: smooth
     }
 
     body {
@@ -46,7 +46,7 @@
       font-family: var(--font-body);
       font-size: 16px;
       line-height: 1.6;
-      overflow-x: hidden;
+      overflow-x: hidden
     }
 
     /* PRELOADER */
@@ -58,11 +58,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 1.2s cubic-bezier(0.76, 0, 0.24, 1);
+      transition: transform 1.2s cubic-bezier(0.76, 0, 0.24, 1)
     }
 
     #preloader.done {
-      transform: translateY(-100%);
+      transform: translateY(-100%)
     }
 
     .pre-text {
@@ -70,7 +70,7 @@
       font-size: clamp(4rem, 12vw, 9rem);
       color: rgba(180, 10, 10, 0.3);
       position: relative;
-      letter-spacing: 2px;
+      letter-spacing: 2px
     }
 
     .pre-fill {
@@ -81,11 +81,11 @@
       overflow: hidden;
       clip-path: inset(100% 0 0 0);
       transition: clip-path 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
-      white-space: nowrap;
+      white-space: nowrap
     }
 
     #preloader.reveal .pre-fill {
-      clip-path: inset(0% 0 0 0);
+      clip-path: inset(0% 0 0 0)
     }
 
     /* NAVBAR */
@@ -99,12 +99,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: background 0.4s;
+      transition: background 0.4s
     }
 
     nav.scrolled {
       background: rgba(10, 10, 10, 0.92);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px)
     }
 
     .nav-logo {
@@ -112,17 +112,17 @@
       font-size: 1.8rem;
       color: var(--white);
       text-decoration: none;
-      letter-spacing: 1px;
+      letter-spacing: 1px
     }
 
     .nav-logo span {
-      color: var(--red);
+      color: var(--red)
     }
 
     .nav-links {
       display: flex;
       gap: 2rem;
-      list-style: none;
+      list-style: none
     }
 
     .nav-links a {
@@ -133,7 +133,7 @@
       letter-spacing: 0.5px;
       text-transform: uppercase;
       transition: color 0.2s;
-      position: relative;
+      position: relative
     }
 
     .nav-links a::after {
@@ -144,15 +144,15 @@
       width: 0;
       height: 2px;
       background: var(--red);
-      transition: width 0.3s;
+      transition: width 0.3s
     }
 
     .nav-links a:hover {
-      color: var(--white);
+      color: var(--white)
     }
 
     .nav-links a:hover::after {
-      width: 100%;
+      width: 100%
     }
 
     .nav-cta {
@@ -164,19 +164,19 @@
       font-size: 0.875rem;
       font-weight: 600;
       transition: all 0.3s;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px)
     }
 
     .nav-cta:hover {
       background: var(--red);
-      border-color: var(--red);
+      border-color: var(--red)
     }
 
     .hamburger {
       display: none;
       cursor: pointer;
       flex-direction: column;
-      gap: 5px;
+      gap: 5px
     }
 
     .hamburger span {
@@ -184,7 +184,7 @@
       height: 2px;
       background: var(--white);
       transition: all 0.3s;
-      display: block;
+      display: block
     }
 
     .mobile-menu {
@@ -196,18 +196,18 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2rem;
+      gap: 2rem
     }
 
     .mobile-menu.open {
-      display: flex;
+      display: flex
     }
 
     .mobile-menu a {
       font-family: var(--font-display);
       font-size: 2.5rem;
       color: var(--white);
-      text-decoration: none;
+      text-decoration: none
     }
 
     /* HERO */
@@ -220,15 +220,31 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 0 3rem 5rem;
+      padding: 0 3rem 5rem
     }
 
     .hero-bg {
       position: absolute;
       inset: 0;
       z-index: 0;
-      overflow: hidden;
-      background: linear-gradient(to bottom, rgba(10, 10, 10, 0.2) 0%, rgba(10, 10, 10, 0.7) 60%, rgba(10, 10, 10, 0.95) 100%);
+      overflow: hidden
+    }
+
+    .hero-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: linear-gradient(to bottom, rgba(10, 10, 10, 0.2) 0%, rgba(10, 10, 10, 0.7) 60%, rgba(10, 10, 10, 0.95) 100%)
+    }
+
+    .hero-bg .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1
     }
 
     .hero-noise {
@@ -238,7 +254,7 @@
       opacity: 0.04;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       background-repeat: repeat;
-      background-size: 200px;
+      background-size: 200px
     }
 
     .hero-grid {
@@ -250,14 +266,14 @@
       z-index: 1;
       opacity: 0.04;
       background-image: linear-gradient(rgba(255, 255, 255, 1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 1) 1px, transparent 1px);
-      background-size: 80px 80px;
+      background-size: 80px 80px
     }
 
     /* ensure content sits above video */
     .hero-content {
       position: relative;
       z-index: 3;
-      max-width: 900px;
+      max-width: 900px
     }
 
     .hero-badge {
@@ -273,15 +289,7 @@
       font-weight: 600;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: var(--red);
-    }
-
-    .hero-bg::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      background: linear-gradient(to bottom, rgba(10, 10, 10, 0.2) 0%, rgba(10, 10, 10, 0.7) 60%, rgba(10, 10, 10, 0.95) 100%);
+      color: var(--red)
     }
 
     .hero-badge::before {
@@ -290,11 +298,8 @@
       height: 6px;
       background: var(--green);
       border-radius: 50%;
-      animation: pulse 2s ease-in-out infinite;
+      animation: pulse 2s ease-in-out infinite
     }
-
-    /* ensure content sits above video */
-
 
     /* top-right sound toggle */
     .sound-toggle {
@@ -312,12 +317,12 @@
       border-radius: 8px;
       cursor: pointer;
       z-index: 5;
-      font-size: 18px;
+      font-size: 18px
     }
 
     @media (max-width:768px) {
       .sound-toggle {
-        display: none;
+        display: none
       }
     }
 
@@ -340,16 +345,16 @@
       font-size: clamp(3.5rem, 9vw, 8rem);
       line-height: 0.92;
       letter-spacing: 1px;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.5rem
     }
 
     .hero-headline .outline {
       -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.4);
-      color: transparent;
+      color: transparent
     }
 
     .hero-headline .red {
-      color: var(--red);
+      color: var(--red)
     }
 
     .hero-sub {
@@ -358,13 +363,13 @@
       max-width: 480px;
       margin-bottom: 2.5rem;
       line-height: 1.7;
-      font-weight: 300;
+      font-weight: 300
     }
 
     .hero-actions {
       display: flex;
       gap: 1rem;
-      flex-wrap: wrap;
+      flex-wrap: wrap
     }
 
     .btn-primary {
@@ -378,13 +383,13 @@
       cursor: pointer;
       transition: all 0.3s;
       text-decoration: none;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.5px
     }
 
     .btn-primary:hover {
       background: var(--red);
       color: var(--white);
-      transform: translateY(-2px);
+      transform: translateY(-2px)
     }
 
     .btn-ghost {
@@ -398,12 +403,12 @@
       cursor: pointer;
       transition: all 0.3s;
       text-decoration: none;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px)
     }
 
     .btn-ghost:hover {
       background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.5);
+      border-color: rgba(255, 255, 255, 0.5)
     }
 
     .hero-right {
@@ -414,7 +419,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.75rem
     }
 
     .play-btn {
@@ -429,14 +434,14 @@
       justify-content: center;
       cursor: pointer;
       transition: all 0.4s;
-      color: var(--white);
+      color: var(--white)
     }
 
     .play-btn:hover {
       background: var(--red);
       border-color: var(--red);
       transform: scale(1.08);
-      box-shadow: 0 0 32px rgba(255, 42, 42, 0.5);
+      box-shadow: 0 0 32px rgba(255, 42, 42, 0.5)
     }
 
     .play-label {
@@ -444,7 +449,7 @@
       font-weight: 700;
       letter-spacing: 3px;
       text-transform: uppercase;
-      opacity: 0.6;
+      opacity: 0.6
     }
 
     .scroll-hint {
@@ -456,21 +461,21 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 8px
     }
 
     .scroll-hint span {
       font-size: 0.65rem;
       letter-spacing: 2px;
       text-transform: uppercase;
-      opacity: 0.4;
+      opacity: 0.4
     }
 
     .scroll-line {
       width: 1px;
       height: 40px;
       background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
+      animation: scrollPulse 2s ease-in-out infinite
     }
 
     @keyframes scrollPulse {
@@ -495,17 +500,17 @@
       background: rgba(0, 0, 0, 0.95);
       z-index: 10000;
       align-items: center;
-      justify-content: center;
+      justify-content: center
     }
 
     #videoModal.active {
-      display: flex;
+      display: flex
     }
 
     .modal-inner {
       max-width: 860px;
       width: 92%;
-      position: relative;
+      position: relative
     }
 
     .modal-close {
@@ -524,11 +529,11 @@
       transition: color 0.2s;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 8px
     }
 
     .modal-close:hover {
-      color: var(--red);
+      color: var(--red)
     }
 
     #reelVideo {
@@ -537,7 +542,7 @@
       display: block;
       background: #000;
       outline: none;
-      box-shadow: 0 0 80px rgba(255, 42, 42, 0.2);
+      box-shadow: 0 0 80px rgba(255, 42, 42, 0.2)
     }
 
     /* ABOUT */
@@ -1561,6 +1566,31 @@
       opacity: 1;
       transform: translateX(0);
     }
+
+
+    @media (max-width: 768px) {
+      .hero-bg .hero-video {
+        display: none;
+      }
+
+      .hero-bg {
+        background-image: url('/hero-poster.jpg');
+        background-size: cover;
+        background-position: center;
+      }
+
+      .sound-toggle {
+        display: none;
+      }
+
+      #hero {
+        padding: 0 1.5rem 4rem;
+      }
+
+      .hero-right {
+        right: 1.5rem;
+      }
+    }
   </style>
 </head>
 
@@ -1604,8 +1634,8 @@
     <div class="hero-noise"></div>
 
     <div class="hero-bg">
-      <video id="heroVideo" autoplay muted loop playsinline preload="auto" class="hero-video">
-        <source src="/reel.mp4" type="video/mp4">
+      <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg"  class="hero-video">
+        <source src="/Reel.mp4" type="video/mp4">
       </video>
     </div>
 
@@ -1616,9 +1646,7 @@
         <span class="outline">STACK</span><br>
         <span class="red">DEV.</span>
       </h1>
-      <p class="hero-sub">
-        Building and shipping production web applications — React, Next.js, TypeScript, Node.js.
-      </p>
+      <p class="hero-sub">Building and shipping production web applications — React, Next.js, TypeScript, Node.js.</p>
       <div class="hero-actions">
         <a href="#projects" class="btn-primary">View My Work</a>
         <a href="#contact" class="btn-ghost">Get in Touch</a>
@@ -1634,7 +1662,7 @@
     </div>
   </section>
 
-  <!-- VIDEO MODAL (unchanged markup except absolute source path for Vercel) -->
+  <!-- VIDEO MODAL -->
   <div id="videoModal">
     <div class="modal-inner">
       <button class="modal-close" onclick="closeVideo()">
@@ -1644,7 +1672,7 @@
         Close
       </button>
       <video id="reelVideo" controls playsinline preload="none">
-        <source src="/reel.mp4" type="video/mp4">
+        <source src="Reel.mp4" type="video/mp4">
       </video>
     </div>
   </div>
@@ -2004,7 +2032,7 @@
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
     });
 
-    // Ensure heroVideo exists and add top-right sound toggle (user gesture required to unmute)
+    // Hero background sound toggle + mobile fallback
     (function () {
       const heroVideo = document.getElementById('heroVideo');
       if (!heroVideo) return;
@@ -2015,6 +2043,7 @@
       btn.className = 'sound-toggle';
       btn.type = 'button';
       btn.title = 'Toggle sound';
+      btn.setAttribute('aria-label', 'Toggle background audio');
       btn.setAttribute('aria-pressed', 'false');
       btn.textContent = '🔈';
 
@@ -2022,9 +2051,8 @@
       const hero = document.getElementById('hero');
       if (hero) hero.appendChild(btn);
 
-      // toggle behavior
+      // toggle behavior (user gesture required to unmute)
       btn.addEventListener('click', () => {
-        // browsers require a user gesture to unmute; this click satisfies that
         if (heroVideo.muted) {
           heroVideo.muted = false;
           btn.textContent = '🔊';
@@ -2041,6 +2069,11 @@
         if (heroVideo.muted) { btn.textContent = '🔈'; btn.setAttribute('aria-pressed', 'false'); }
         else { btn.textContent = '🔊'; btn.setAttribute('aria-pressed', 'true'); }
       });
+
+      // Pause video and rely on poster on small screens (reduces mobile bandwidth)
+      if (window.matchMedia && window.matchMedia('(max-width:768px)').matches) {
+        try { heroVideo.pause(); } catch (e) { }
+      }
     })();
 
     // Mobile menu
