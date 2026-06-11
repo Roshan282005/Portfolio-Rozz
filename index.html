@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ROZZ — Roshan S | Full Stack Developer</title>
-  <link rel="icon" src="logo.jpg">
+  <link rel="icon" href="/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -325,8 +325,9 @@
       .sound-toggle {
         display: none;
       }
-      .play-btn{
-        display: block;
+
+      .play-btn {
+        display: flex;
       }
     }
 
@@ -334,7 +335,8 @@
       .sound-toggle {
         display: none;
       }
-      .play-btn{
+
+      .play-btn {
         display: block;
         width: 57px;
         height: 57px;
@@ -1650,7 +1652,7 @@
     <div class="hero-noise"></div>
 
     <div class="hero-bg">
-      <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg"  class="hero-video">
+      <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg" class="hero-video">
         <source src="/Reel.mp4" type="video/mp4">
       </video>
     </div>
@@ -1675,6 +1677,7 @@
           <path d="M8 5v14l11-7z" />
         </svg>
       </div>
+      <span class="play-label">Watch Reel</span> <!-- Add this back -->
     </div>
   </section>
 
@@ -1702,7 +1705,9 @@
             <div class="badge-hole-inner"></div>
           </div>
           <div class="badge-img">
-            <div class="badge-img-inner"><img class="badge-img-inner" src="ROZZ.png"></div>
+            <div class="badge-img-inner">
+              <img src="ROZZ.png" alt="Roshan S" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
+            </div>
           </div>
           <div class="badge-info">
             <div class="badge-name">ROSHAN S</div>
