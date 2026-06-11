@@ -2053,7 +2053,7 @@
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
     });
 
-    // Hero background sound toggle + mobile fallback
+    // Hero background sound toggle
     (function () {
       const heroVideo = document.getElementById('heroVideo');
       if (!heroVideo) return;
@@ -2065,42 +2065,29 @@
       btn.title = 'Toggle sound';
       btn.setAttribute('aria-label', 'Toggle background audio');
       btn.setAttribute('aria-pressed', 'false');
-      btn.textContent = '🔇'; // starts muted — honest state
+      btn.textContent = '🔇';
 
       const hero = document.getElementById('hero');
       if (hero) hero.appendChild(btn);
 
       btn.addEventListener('click', () => {
         if (heroVideo.muted) {
-          // First click: unmute
           heroVideo.muted = false;
           btn.textContent = '🔊';
           btn.setAttribute('aria-pressed', 'true');
         } else {
-          // Second click: mute
           heroVideo.muted = true;
           btn.textContent = '🔇';
           btn.setAttribute('aria-pressed', 'false');
         }
       });
 
-      // Pause video on mobile to save bandwidth
+      // Pause on mobile to save bandwidth
       if (window.matchMedia('(max-width:768px)').matches) {
         try { heroVideo.pause(); } catch (e) { }
       }
     })();
-
-    // sync state on play
-    heroVideo.addEventListener('play', () => {
-      if (heroVideo.muted) { btn.textContent = '🔈'; btn.setAttribute('aria-pressed', 'true'); }
-      else { btn.textContent = '🔊'; btn.setAttribute('aria-pressed', 'false'); }
-    });
-
-    // Pause video and rely on poster on small screens (reduces mobile bandwidth)
-    if (window.matchMedia && window.matchMedia('(max-width:768px)').matches) {
-      try { heroVideo.pause(); } catch (e) { }
-    }
-    }) ();
+    // ← IIFE ends here. Nothing else goes outside it.;
 
     // Mobile menu
     function toggleMobile() {
