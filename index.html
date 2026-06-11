@@ -2072,12 +2072,12 @@
 
       btn.addEventListener('click', () => {
         if (heroVideo.muted) {
-          heroVideo.muted = false;
-          btn.textContent = '🔊';
-          btn.setAttribute('aria-pressed', 'false');
-        } else {
           heroVideo.muted = true;
           btn.textContent = '🔇';
+          btn.setAttribute('aria-pressed', 'false');
+        } else {
+          heroVideo.muted = false;
+          btn.textContent = '🔊';
           btn.setAttribute('aria-pressed', 'true');
         }
       });
