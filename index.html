@@ -85,8 +85,29 @@
       white-space: nowrap
     }
 
+    .preloader-loader {
+      margin-top: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.95);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease
+    }
+
+    .preloader-loader svg {
+      width: 2.75rem;
+      height: 2.75rem
+    }
+
     #preloader.reveal .pre-fill {
       clip-path: inset(0% 0 0 0)
+    }
+
+    #preloader.reveal .preloader-loader {
+      opacity: 1;
+      transform: translateY(0)
     }
 
     /* NAVBAR */
@@ -1562,6 +1583,21 @@
   <div id="preloader">
     <div class="pre-text">ROZZ<div class="pre-fill">ROZZ</div>
     </div>
+    <div class="preloader-loader" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+        <path d="M0 0h24v24H0z" fill="none" />
+        <g>
+          <rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".14" />
+          <rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".29" transform="rotate(30 12 12)" />
+          <rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".43" transform="rotate(60 12 12)" />
+          <rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".57" transform="rotate(90 12 12)" />
+          <rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".71" transform="rotate(120 12 12)" />
+          <rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".86" transform="rotate(150 12 12)" />
+          <rect width="2" height="5" x="11" y="1" fill="currentColor" transform="rotate(180 12 12)" />
+          <animateTransform attributeName="transform" calcMode="discrete" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;30 12 12;60 12 12;90 12 12;120 12 12;150 12 12;180 12 12;210 12 12;240 12 12;270 12 12;300 12 12;330 12 12;360 12 12" />
+        </g>
+      </svg>
+    </div>
   </div>
 
   <!-- NAVBAR -->
@@ -2018,33 +2054,32 @@
       btn.title = 'Toggle sound';
       btn.setAttribute('aria-label', 'Toggle background audio');
       btn.setAttribute('aria-pressed', 'false');
-      btn.textContent = '🔇'; // honest: video starts muted
+
+      const mutedIcon = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path fill="currentColor" d="M3.28 2.22a.75.75 0 1 0-1.06 1.06l4.257 4.258A8.46 8.46 0 0 0 5.5 11.5l-.001 4.111l-1.416 3.644l-.042.125A1.28 1.28 0 0 0 5.275 21h14.664l4.78 4.78a.75.75 0 0 0 1.061-1.061zm5.06 2.938l15.372 15.373c.181-.22.29-.503.29-.81l-.01-.158a1.3 1.3 0 0 0-.077-.306l-1.414-3.644v-4.112h-.004v-.255A8.501 8.501 0 0 0 8.34 5.158m9.126 16.844a3.502 3.502 0 0 1-6.932 0z" />
+        </svg>`;
+
+      const unmutedIcon = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path fill="currentColor" d="M9.042 19.003h5.916a3 3 0 0 1-5.916 0m2.958-17a7.5 7.5 0 0 1 7.5 7.5v4l1.418 3.16A.95.95 0 0 1 20.052 18h-16.1a.95.95 0 0 1-.867-1.338l1.415-3.16V9.49l.005-.25A7.5 7.5 0 0 1 12 2.004M23 8.25a.75.75 0 0 1 .102 1.493L23 9.75h-2a.75.75 0 0 1-.102-1.493L21 8.25zm-20 0a.75.75 0 0 1 .102 1.493L3 9.75H1a.75.75 0 0 1-.102-1.493L1 8.25zm19.6-5.7a.75.75 0 0 1-.066.977l-.084.073l-2 1.5a.75.75 0 0 1-.984-1.127l.084-.073l2-1.5a.75.75 0 0 1 1.05.15M2.45 2.4l2 1.5a.75.75 0 1 1-.9 1.2l-2-1.5a.75.75 0 1 1 .9-1.2" />
+        </svg>`;
+
+      btn.innerHTML = mutedIcon;
 
       const hero = document.getElementById('hero');
       if (hero) hero.appendChild(btn);
 
       btn.addEventListener('click', () => {
         if (heroVideo.muted) {
-          // Currently muted → unmute
           heroVideo.muted = false;
-          btn.textContent = '🔊';
-
-
-          //           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-          //   <path d="M0 0h24v24H0z" fill="none" />
-          //   <path fill="currentColor" d="M9.042 19.003h5.916a3 3 0 0 1-5.916 0m2.958-17a7.5 7.5 0 0 1 7.5 7.5v4l1.418 3.16A.95.95 0 0 1 20.052 18h-16.1a.95.95 0 0 1-.867-1.338l1.415-3.16V9.49l.005-.25A7.5 7.5 0 0 1 12 2.004M23 8.25a.75.75 0 0 1 .102 1.493L23 9.75h-2a.75.75 0 0 1-.102-1.493L21 8.25zm-20 0a.75.75 0 0 1 .102 1.493L3 9.75H1a.75.75 0 0 1-.102-1.493L1 8.25zm19.6-5.7a.75.75 0 0 1-.066.977l-.084.073l-2 1.5a.75.75 0 0 1-.984-1.127l.084-.073l2-1.5a.75.75 0 0 1 1.05.15M2.45 2.4l2 1.5a.75.75 0 1 1-.9 1.2l-2-1.5a.75.75 0 1 1 .9-1.2" />
-          // </svg>
-
+          btn.innerHTML = unmutedIcon;
           btn.setAttribute('aria-pressed', 'true');
         } else {
-          // Currently unmuted → mute
           heroVideo.muted = true;
-          btn.textContent = '🔇';
-
-          //           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
-          //   <path d="M0 0h28v28H0z" fill="none" />
-          //   <path fill="currentColor" d="M3.28 2.22a.75.75 0 1 0-1.06 1.06l4.257 4.258A8.46 8.46 0 0 0 5.5 11.5l-.001 4.111l-1.416 3.644l-.042.125A1.28 1.28 0 0 0 5.275 21h14.664l4.78 4.78a.75.75 0 0 0 1.061-1.061zm5.06 2.938l15.372 15.373c.181-.22.29-.503.29-.81l-.01-.158a1.3 1.3 0 0 0-.077-.306l-1.414-3.644v-4.112h-.004v-.255A8.501 8.501 0 0 0 8.34 5.158m9.126 16.844a3.502 3.502 0 0 1-6.932 0z" />
-          // </svg>
+          btn.innerHTML = mutedIcon;
           btn.setAttribute('aria-pressed', 'false');
         }
       });
