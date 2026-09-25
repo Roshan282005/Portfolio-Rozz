@@ -1574,6 +1574,45 @@
         right: 1.5rem
       }
     }
+
+    /* ─── CUSTOM COLLAB CURSOR ─────────────────────────────────────────── */
+    @media (hover: hover) and (pointer: fine) {
+      body.custom-cursor-active,
+      body.custom-cursor-active * {
+        cursor: none !important;
+      }
+    }
+
+    .collab-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 999999;
+      transform: translate(-2px, -2px);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .collab-cursor.visible {
+      opacity: 1;
+    }
+
+    .collab-cursor__label {
+      position: relative;
+      top: 18px;
+      left: -8px;
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+      letter-spacing: 0.01em;
+      line-height: 1.6;
+    }
   </style>
 </head>
 
@@ -2020,6 +2059,20 @@
     </div>
   </footer>
 
+  <!-- CUSTOM COLLAB CURSOR -->
+  <div class="collab-cursor" id="collabCursor">
+    <svg width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M3 2L3 22L8.5 17L12 24.5L14.5 23.5L11 16L18 16L3 2Z"
+        style="fill:var(--red)"
+        stroke="white"
+        stroke-width="1.5"
+        stroke-linejoin="round"
+      />
+    </svg>
+    <span class="collab-cursor__label">ROZZ</span>
+  </div>
+
   <script>
     // ─── PRELOADER ────────────────────────────────────────────────────────────
     window.addEventListener('load', () => {
@@ -2175,6 +2228,28 @@
           btn.innerHTML = 'Send';
         });
     }
+
+    // ─── CUSTOM COLLAB CURSOR ─────────────────────────────────────────────────
+    (function () {
+      const cursor = document.getElementById('collabCursor');
+      if (!cursor) return;
+
+      // Only swap in the custom cursor on devices with a real mouse.
+      // Skips touch devices, where there's no pointer to replace and the
+      // icon would otherwise sit frozen at the top-left corner.
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+      document.body.classList.add('custom-cursor-active');
+
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        cursor.classList.add('visible');
+      });
+
+      document.addEventListener('mouseleave', () => cursor.classList.remove('visible'));
+      document.addEventListener('mouseenter', () => cursor.classList.add('visible'));
+    })();
   </script>
 </body>
 
